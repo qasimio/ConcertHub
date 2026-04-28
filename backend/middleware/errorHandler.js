@@ -1,84 +1,53 @@
-// Location: D:\ConcertHub\backend\middleware\auth.js
+// Location: D:\ConcertHub\backend\middleware\errorHandler.js
 
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+// ─── Centralized Error Handler ────────────────────────────────────────────────
+const errorHandler = (err, req, res, next) => {
+  let error = { ...err };
+  error.message = err.message;
 
-// ─── Protect Route (must be logged in) ────────────────────────────────────────
-const protect = async (req, res, next) => {
-  let token;
-
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer ')
-  ) {
-    token = req.headers.authorization.split(' ')[1];
+  // Log for development
+  if (process.env.NODE_ENV === 'development') {
+    console.error('❌ Error:', err);
   }
 
-  if (!token) {
-    return res.status(401).json({
-      success: false,
-      message: 'Not authorized — no token provided',
-    });
+  // Mongoose bad ObjectId
+  if (err.name === 'CastError') {
+    error.message = `Resource not found with id: ${err.value}`;
+    return res.status(404).json({ success: false, message: error.message });
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id).select('-password');
-
-    if (!user) {
-      return res.status(401).json({
-        success: false,
-        message: 'Token is valid but user no longer exists',
-      });
-    }
-
-    if (!user.isActive) {
-      return res.status(403).json({
-        success: false,
-        message: 'Your account has been deactivated. Contact support.',
-      });
-    }
-
-    req.user = user;
-    next();
-  } catch (error) {
-    return res.status(401).json({
-      success: false,
-      message: 'Invalid or expired token',
-    });
+  // Mongoose duplicate key
+  if (err.code === 11000) {
+    const field = Object.keys(err.keyValue)[0];
+    error.message = `${field.charAt(0).toUpperCase() + field.slice(1)} already exists`;
+    return res.status(400).json({ success: false, message: error.message });
   }
+
+  // Mongoose validation error
+  if (err.name === 'ValidationError') {
+    const messages = Object.values(err.errors).map((val) => val.message);
+    return res.status(400).json({ success: false, message: messages.join('. ') });
+  }
+
+  // JWT errors
+  if (err.name === 'JsonWebTokenError') {
+    return res.status(401).json({ success: false, message: 'Invalid token' });
+  }
+  if (err.name === 'TokenExpiredError') {
+    return res.status(401).json({ success: false, message: 'Token expired' });
+  }
+
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: error.message || 'Internal Server Error',
+  });
 };
 
-// ─── Role Guard ────────────────────────────────────────────────────────────────
-// Usage: authorize('admin') or authorize('admin', 'artist')
-const authorize = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      return res.status(403).json({
-        success: false,
-        message: `Access denied. Role '${req.user.role}' is not allowed here.`,
-      });
-    }
-    next();
-  };
+// ─── 404 Handler ──────────────────────────────────────────────────────────────
+const notFound = (req, res, next) => {
+  const error = new Error(`Route not found: ${req.originalUrl}`);
+  res.status(404);
+  next(error);
 };
 
-// ─── Optional Auth (don't block, just attach user if token present) ────────────
-const optionalAuth = async (req, res, next) => {
-  let token;
-  if (
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer ')
-  ) {
-    try {
-      token = req.headers.authorization.split(' ')[1];
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = await User.findById(decoded.id).select('-password');
-    } catch {
-      req.user = null;
-    }
-  }
-  next();
-};
-
-module.exports = { protect, authorize, optionalAuth };
+module.exports = { errorHandler, notFound };
