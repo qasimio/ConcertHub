@@ -1,0 +1,361 @@
+/* Location: ConcertHub/frontend/src/pages/EventDetailPage.module.css */
+
+.page { padding-top: var(--navbar-h); }
+
+/* Hero */
+.hero {
+  position: relative;
+  height: 55vh;
+  min-height: 380px;
+  overflow: hidden;
+}
+
+.heroImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.heroPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--bg-elevated), var(--bg-card));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroPlaceholderText { font-size: 120px; color: var(--text-muted); opacity: 0.15; }
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg-base) 0%, rgba(8,10,15,0.5) 50%, transparent 100%);
+}
+
+.heroContent {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  padding-bottom: var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(240,242,248,0.7);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.back:hover { color: var(--text-primary); }
+
+.heroGenre {
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.heroTitle {
+  font-size: clamp(28px, 5vw, 52px);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+  max-width: 700px;
+}
+
+.heroArtist {
+  font-size: 16px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity var(--transition);
+}
+.heroArtist:hover { opacity: 0.8; }
+
+/* Layout */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--space-12);
+  padding: var(--space-10) 0 var(--space-20);
+  align-items: start;
+}
+
+/* Meta row */
+.metaRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-8);
+}
+
+.metaItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.metaItem > svg {
+  color: var(--accent);
+  font-size: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.metaLabel {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+
+.metaValue { font-size: 14px; font-weight: 600; color: var(--text-primary); }
+.metaSub { font-size: 12px; color: var(--text-secondary); }
+.soldText { color: var(--danger) !important; }
+
+/* Sections */
+.sectionTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--border);
+}
+
+.description {
+  margin-bottom: var(--space-8);
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Artist card */
+.artistCard {
+  display: flex;
+  gap: var(--space-5);
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--space-8);
+  transition: border-color var(--transition);
+}
+.artistCard:hover { border-color: var(--border-hover); }
+
+.artistAvatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg-elevated);
+  border: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.artistAvatar img { width: 100%; height: 100%; object-fit: cover; }
+.artistAvatar span { font-size: 28px; color: var(--text-muted); }
+
+.artistInfo { display: flex; flex-direction: column; gap: 4px; }
+.artistLabel { font-size: 10px; font-family: var(--font-mono); color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+.artistName { font-size: 18px; font-weight: 700; }
+.artistBio { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-top: 4px; }
+.artistLink { font-size: 13px; color: var(--accent); margin-top: 4px; text-decoration: none; }
+.artistLink:hover { text-decoration: underline; }
+
+/* Reviews */
+.reviews { margin-bottom: var(--space-8); }
+
+.reviewForm {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.reviewFormLabel { font-size: 14px; font-weight: 600; }
+
+.starPicker { display: flex; gap: 4px; }
+
+.starBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  padding: 0;
+  transition: transform var(--transition);
+}
+.starBtn:hover { transform: scale(1.2); }
+
+.reviewTextarea { resize: vertical; min-height: 80px; }
+
+.reviewList { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.reviewCard {
+  padding: var(--space-4);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.reviewHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-3); }
+
+.reviewUser { display: flex; align-items: center; gap: var(--space-3); }
+
+.reviewAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.reviewName { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+
+.stars { display: flex; gap: 2px; }
+
+.reviewComment { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+.noReviews { font-size: 14px; color: var(--text-muted); padding: var(--space-6) 0; }
+
+/* Skeleton */
+.heroSkeleton { width: 100%; height: 55vh; min-height: 380px; }
+.bodySkeleton { padding: var(--space-8) 0; }
+
+/* Sidebar booking widget */
+.sidebar { position: sticky; top: calc(var(--navbar-h) + var(--space-8)); }
+
+.bookingWidget {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.priceDisplay { display: flex; align-items: baseline; gap: 8px; }
+.priceAmount { font-size: 32px; font-weight: 700; font-family: var(--font-mono); color: var(--text-primary); }
+.priceLabel { font-size: 13px; color: var(--text-muted); }
+
+.ticketPicker { display: flex; flex-direction: column; gap: var(--space-2); }
+.ticketLabel { font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+.ticketRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  width: fit-content;
+}
+.ticketBtn {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 20px;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background var(--transition);
+}
+.ticketBtn:hover { background: var(--border); }
+.ticketCount { font-size: 18px; font-weight: 700; font-family: var(--font-mono); min-width: 24px; text-align: center; }
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+.totalAmount { font-size: 20px; font-weight: 700; color: var(--text-primary); font-family: var(--font-mono); }
+
+.walletRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+.walletLabel { color: var(--text-muted); }
+.walletAmt { font-family: var(--font-mono); color: var(--success); font-weight: 500; }
+.walletInsufficient { color: var(--danger); }
+
+.widgetActions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.actionBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-family: var(--font-body);
+  padding: 9px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.actionBtn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+.favActive { color: var(--danger) !important; border-color: rgba(255,77,109,0.4) !important; background: var(--danger-dim) !important; }
+
+.policyNote {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+}
+.policyNote svg { margin-top: 1px; }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { position: static; }
+}
