@@ -1,0 +1,205 @@
+/* Location: ConcertHub/frontend/src/pages/auth/AuthPage.module.css */
+
+.page {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+/* Left panel */
+.leftPanel {
+  position: relative;
+  background: var(--bg-surface);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-12);
+  overflow: hidden;
+  border-right: 1px solid var(--border);
+}
+
+.leftGrid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 70% at 30% 60%, black 30%, transparent 100%);
+}
+
+/* Accent glow */
+.leftPanel::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -10%;
+  width: 60%;
+  height: 60%;
+  background: radial-gradient(ellipse, rgba(232,255,71,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.leftContent {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.logoLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.logoLink svg { color: var(--accent); font-size: 20px; }
+
+.bigText {
+  font-size: clamp(56px, 8vw, 96px);
+  color: var(--text-primary);
+  line-height: 0.92;
+}
+
+.leftSub {
+  font-size: 16px;
+  color: var(--text-secondary);
+  max-width: 340px;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* Right panel */
+.rightPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-12) var(--space-8);
+  background: var(--bg-base);
+}
+
+.formBox {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  animation: fadeUp 0.4s ease;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.formHeader { display: flex; flex-direction: column; gap: 6px; }
+
+.formTitle { font-size: 28px; font-weight: 700; }
+
+.formSub { font-size: 14px; color: var(--text-secondary); }
+
+.formLink { color: var(--accent); font-weight: 500; }
+.formLink:hover { text-decoration: underline; }
+
+/* Role toggle */
+.roleToggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-1);
+}
+
+.roleBtn {
+  padding: 10px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: all var(--transition);
+}
+
+.roleBtnActive {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-accent);
+}
+
+/* Form */
+.form { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.label { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
+
+.inputWrapper { position: relative; }
+
+.inputIcon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 16px;
+  pointer-events: none;
+}
+
+.inputWithIcon { padding-left: 40px !important; }
+
+/* Bonus badge */
+.bonusBadge {
+  background: var(--accent-subtle);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.bonusBadge strong { color: var(--accent); }
+
+/* Dev hints */
+.devHints {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border);
+}
+
+.devLabel {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.devBtns { display: flex; gap: var(--space-2); }
+
+.devBtn {
+  flex: 1;
+  padding: 6px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.devBtn:hover { border-color: var(--accent); color: var(--accent); }
+
+@media (max-width: 768px) {
+  .page { grid-template-columns: 1fr; }
+  .leftPanel { display: none; }
+}
