@@ -1,0 +1,131 @@
+/* Location: ConcertHub/frontend/src/pages/ArtistDetailPage.module.css */
+
+.page { padding-top: var(--navbar-h); }
+
+.banner {
+  position: relative;
+  height: 280px;
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+.bannerImg { width: 100%; height: 100%; object-fit: cover; }
+.bannerPlaceholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+}
+.bannerOverlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--bg-base) 0%, rgba(8,10,15,0.3) 100%);
+}
+
+/* Profile row */
+.profileRow {
+  position: relative;
+  margin-top: -80px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  padding-bottom: var(--space-8);
+}
+
+.back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; color: rgba(240,242,248,0.6);
+  text-decoration: none; transition: color var(--transition);
+}
+.back:hover { color: var(--text-primary); }
+
+.profileMain {
+  display: flex; align-items: flex-end; gap: var(--space-6);
+}
+
+.avatarWrapper {
+  width: 120px; height: 120px;
+  border-radius: 50%; overflow: hidden;
+  border: 4px solid var(--bg-base);
+  background: var(--bg-elevated);
+  flex-shrink: 0;
+  box-shadow: var(--shadow-lg);
+}
+.avatar { width: 100%; height: 100%; object-fit: cover; }
+.avatarInitials {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 44px; color: var(--text-muted);
+}
+
+.profileInfo { flex: 1; display: flex; flex-direction: column; gap: var(--space-4); }
+.profileTop { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-4); }
+
+.artistName { font-size: clamp(24px, 4vw, 40px); font-weight: 700; }
+
+.genreRow { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.genreTag {
+  font-size: 11px; font-family: var(--font-mono); font-weight: 500;
+  padding: 3px 10px; border-radius: var(--radius-full); text-transform: uppercase; letter-spacing: 0.06em;
+}
+
+.favBtn {
+  display: flex; align-items: center; gap: 6px;
+  padding: 9px 18px; border-radius: var(--radius-md);
+  border: 1px solid var(--border); background: var(--bg-elevated);
+  color: var(--text-secondary); font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: var(--font-body); transition: all var(--transition);
+  flex-shrink: 0;
+}
+.favBtn:hover { border-color: var(--danger); color: var(--danger); background: var(--danger-dim); }
+.favActive { border-color: rgba(255,77,109,0.4) !important; color: var(--danger) !important; background: var(--danger-dim) !important; }
+
+.statsRow {
+  display: flex; align-items: center; gap: var(--space-6);
+}
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.statNum { font-size: 22px; font-weight: 700; font-family: var(--font-mono); }
+.statLabel { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.statDivider { width: 1px; height: 32px; background: var(--border); }
+
+.socials { display: flex; gap: var(--space-3); }
+.socialLink {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  color: var(--text-secondary); font-size: 16px;
+  text-decoration: none; transition: all var(--transition);
+}
+.socialLink:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-subtle); }
+
+/* Layout */
+.layout { padding-bottom: var(--space-20); }
+.main { display: flex; flex-direction: column; gap: 0; max-width: 900px; }
+
+.section { padding: var(--space-8) 0; border-bottom: 1px solid var(--border); }
+.section:last-child { border-bottom: none; }
+.sectionTitle { font-size: 20px; font-weight: 700; margin-bottom: var(--space-5); }
+
+.bio { font-size: 15px; color: var(--text-secondary); line-height: 1.8; }
+
+.eventsGrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: var(--space-4);
+}
+
+.reviewList { display: flex; flex-direction: column; gap: var(--space-3); }
+.reviewCard {
+  padding: var(--space-4); background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: var(--radius-md);
+}
+.reviewHeader { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
+.reviewAvatar {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--bg-elevated); display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; color: var(--text-secondary); flex-shrink: 0;
+}
+.reviewName { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+.stars { display: flex; gap: 2px; }
+.reviewComment { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.noReviews { font-size: 14px; color: var(--text-muted); padding: var(--space-4) 0; }
+
+@media (max-width: 768px) {
+  .profileMain { flex-direction: column; align-items: flex-start; }
+  .profileTop { flex-direction: column; }
+}

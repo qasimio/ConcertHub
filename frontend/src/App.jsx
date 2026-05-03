@@ -1,122 +1,136 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+// Location: ConcertHub/frontend/src/App.jsx
+import { useEffect, Suspense, lazy } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
+import useAuthStore from './store/authStore';
+import Layout from './components/layout/Layout';
+import ProtectedRoute from './components/ui/ProtectedRoute';
 
-function App() {
-  const [count, setCount] = useState(0)
+// ── Pages (lazy-loaded for performance) ───────────────────────────────────────
+const HomePage          = lazy(() => import('./pages/HomePage'));
+const EventsPage        = lazy(() => import('./pages/EventsPage'));
+const EventDetailPage   = lazy(() => import('./pages/EventDetailPage'));
+const ArtistsPage       = lazy(() => import('./pages/ArtistsPage'));
+const ArtistDetailPage  = lazy(() => import('./pages/ArtistDetailPage'));
+const LoginPage         = lazy(() => import('./pages/auth/LoginPage'));
+const RegisterPage      = lazy(() => import('./pages/auth/RegisterPage'));
+const ProfilePage       = lazy(() => import('./pages/user/ProfilePage'));
+const MyBookingsPage    = lazy(() => import('./pages/user/MyBookingsPage'));
+const WalletPage        = lazy(() => import('./pages/user/WalletPage'));
+const ArtistDashboard   = lazy(() => import('./pages/artist/ArtistDashboardPage'));
+const ArtistProfile     = lazy(() => import('./pages/artist/ArtistProfilePage'));
+const AdminDashboard    = lazy(() => import('./pages/admin/AdminDashboardPage'));
+const NotFoundPage      = lazy(() => import('./pages/NotFoundPage'));
+
+// ── Page loader ────────────────────────────────────────────────────────────────
+const PageLoader = () => (
+  <div style={{
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: 16,
+  }}>
+    <div style={{
+      width: 40, height: 40,
+      border: '3px solid var(--border)',
+      borderTopColor: 'var(--accent)',
+      borderRadius: '50%',
+      animation: 'spin 0.7s linear infinite',
+    }} />
+    <p style={{ color: 'var(--text-muted)', fontSize: 13, fontFamily: 'var(--font-mono)' }}>
+      Loading…
+    </p>
+    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+  </div>
+);
+
+// ── App ────────────────────────────────────────────────────────────────────────
+const App = () => {
+  const { refreshUser, token } = useAuthStore();
+
+  // Rehydrate user from token on first load
+  useEffect(() => {
+    if (token) refreshUser();
+  }, []);
 
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+      {/* Toast notifications */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3500,
+          style: {
+            background: 'var(--bg-card)',
+            color: 'var(--text-primary)',
+            border: '1px solid var(--border)',
+            borderRadius: '10px',
+            fontSize: '14px',
+            fontFamily: 'var(--font-body)',
+            boxShadow: 'var(--shadow-lg)',
+          },
+          success: {
+            iconTheme: { primary: 'var(--accent)', secondary: 'var(--text-inverse)' },
+          },
+          error: {
+            iconTheme: { primary: 'var(--danger)', secondary: 'white' },
+          },
+        }}
+      />
 
-      <div className="ticks"></div>
+      <Suspense fallback={<PageLoader />}>
+        <Routes>
+          {/* ── Public routes (with Navbar + Footer) ─────────────────────────── */}
+          <Route element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path="events" element={<EventsPage />} />
+            <Route path="events/:id" element={<EventDetailPage />} />
+            <Route path="artists" element={<ArtistsPage />} />
+            <Route path="artists/:id" element={<ArtistDetailPage />} />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+            {/* ── User routes ─────────────────────────────────────────────────── */}
+            <Route
+              path="profile"
+              element={<ProtectedRoute><ProfilePage /></ProtectedRoute>}
+            />
+            <Route
+              path="my-bookings"
+              element={<ProtectedRoute role="user"><MyBookingsPage /></ProtectedRoute>}
+            />
+            <Route
+              path="wallet"
+              element={<ProtectedRoute role="user"><WalletPage /></ProtectedRoute>}
+            />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+            {/* ── Artist routes ────────────────────────────────────────────────── */}
+            <Route
+              path="artist-dashboard"
+              element={<ProtectedRoute role="artist"><ArtistDashboard /></ProtectedRoute>}
+            />
+            <Route
+              path="artist-profile"
+              element={<ProtectedRoute role="artist"><ArtistProfile /></ProtectedRoute>}
+            />
+
+            {/* ── Admin routes ─────────────────────────────────────────────────── */}
+            <Route
+              path="admin"
+              element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>}
+            />
+
+            {/* ── 404 ──────────────────────────────────────────────────────────── */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
+
+          {/* ── Auth routes (no Navbar/Footer) ───────────────────────────────── */}
+          <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
+        </Routes>
+      </Suspense>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

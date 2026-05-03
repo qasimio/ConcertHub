@@ -1,0 +1,201 @@
+/* Location: ConcertHub/frontend/src/pages/user/UserPages.module.css */
+
+.header { margin-bottom: var(--space-8); }
+.eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 4px; }
+.title { font-size: clamp(24px, 4vw, 36px); font-weight: 700; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-bottom: var(--space-6); flex-wrap: wrap; }
+.tab {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: var(--radius-md);
+  border: 1px solid var(--border); background: none;
+  color: var(--text-secondary); font-size: 13px; font-weight: 500;
+  cursor: pointer; font-family: var(--font-body); transition: all var(--transition);
+}
+.tab:hover { border-color: var(--border-hover); color: var(--text-primary); }
+.tabActive { background: var(--bg-elevated); border-color: var(--border-hover); color: var(--text-primary); }
+.tabCount {
+  background: var(--bg-elevated); color: var(--text-muted);
+  font-size: 11px; font-family: var(--font-mono);
+  padding: 1px 6px; border-radius: var(--radius-full);
+}
+.tabActive .tabCount { background: var(--accent-subtle); color: var(--accent); }
+
+/* Booking list */
+.list { display: flex; flex-direction: column; gap: var(--space-3); }
+
+.bookingCard {
+  display: flex; gap: var(--space-5);
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-lg); padding: var(--space-4);
+  transition: border-color var(--transition);
+  animation: fadeUp 0.4s ease both;
+}
+.bookingCard:hover { border-color: var(--border-hover); }
+
+.bookingThumb {
+  width: 120px; height: 80px; border-radius: var(--radius-md);
+  overflow: hidden; background: var(--bg-elevated);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.bookingThumb img { width: 100%; height: 100%; object-fit: cover; }
+.bookingThumb span { font-size: 28px; color: var(--text-muted); }
+
+.bookingDetails { flex: 1; display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
+
+.bookingTop { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-3); }
+
+.bookingTitle {
+  font-size: 16px; font-weight: 600; line-height: 1.3;
+}
+.bookingTitle a { text-decoration: none; color: var(--text-primary); transition: color var(--transition); }
+.bookingTitle a:hover { color: var(--accent); }
+
+.bookingArtist { font-size: 12px; color: var(--accent); margin-top: 2px; }
+
+.bookingStatus {
+  font-size: 11px; font-weight: 600; font-family: var(--font-mono);
+  padding: 3px 8px; border-radius: var(--radius-full); text-transform: uppercase;
+  letter-spacing: 0.06em; white-space: nowrap;
+}
+
+.bookingMeta { display: flex; flex-wrap: wrap; gap: 8px; }
+.metaChip {
+  display: flex; align-items: center; gap: 4px;
+  font-size: 12px; color: var(--text-secondary);
+}
+.metaChip svg { font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+
+.bookingFooter {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: var(--space-2); border-top: 1px solid var(--border); margin-top: auto;
+}
+.bookingId { font-size: 11px; font-family: var(--font-mono); color: var(--text-muted); }
+.bookingTotal { font-size: 16px; font-weight: 700; font-family: var(--font-mono); }
+
+.skeletonCard {
+  display: flex; gap: var(--space-4); padding: var(--space-4);
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+}
+
+/* Wallet */
+.walletCards {
+  display: grid; grid-template-columns: 2fr 1fr 1fr; gap: var(--space-4); margin-bottom: var(--space-8);
+}
+
+.walletCard {
+  background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius-xl); padding: var(--space-6);
+  display: flex; flex-direction: column; gap: var(--space-2);
+}
+
+.walletCardMain {
+  background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-card) 100%);
+  border-color: var(--border-accent);
+}
+
+.walletCardIcon { font-size: 28px; color: var(--accent); }
+.walletCardLabel { font-size: 12px; color: var(--text-muted); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; }
+.walletCardAmount { font-size: 36px; font-weight: 700; font-family: var(--font-mono); color: var(--accent); }
+.walletCardAmountSm { font-size: 24px; font-weight: 700; font-family: var(--font-mono); }
+.walletCardSub { font-size: 12px; color: var(--text-secondary); }
+
+/* Transactions */
+.section {}
+.sectionHeader {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  gap: var(--space-4); margin-bottom: var(--space-5);
+}
+.sectionTitle { font-size: 20px; font-weight: 700; }
+
+.txList { display: flex; flex-direction: column; gap: 2px; }
+
+.txRow {
+  display: flex; align-items: center; gap: var(--space-4);
+  padding: var(--space-4); border-radius: var(--radius-md);
+  transition: background var(--transition);
+  animation: fadeUp 0.4s ease both;
+}
+.txRow:hover { background: var(--bg-card); }
+
+.txIcon {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+
+.txDetails { flex: 1; min-width: 0; }
+.txDesc { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.txDate { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+.txRight { text-align: right; flex-shrink: 0; }
+.txAmount { font-size: 15px; font-weight: 700; font-family: var(--font-mono); }
+.txBalance { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); margin-top: 2px; }
+
+/* Profile */
+.avatarSection {
+  display: flex; align-items: center; gap: var(--space-6);
+  margin-bottom: var(--space-8); padding-bottom: var(--space-8); border-bottom: 1px solid var(--border);
+}
+
+.avatarLarge {
+  position: relative; width: 96px; height: 96px;
+  border-radius: 50%; overflow: hidden;
+  background: var(--bg-elevated); border: 3px solid var(--border-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; font-weight: 700; color: var(--accent);
+  flex-shrink: 0;
+}
+.avatarLarge img { width: 100%; height: 100%; object-fit: cover; }
+
+.avatarUpload {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.5); opacity: 0; cursor: pointer;
+  transition: opacity var(--transition); font-size: 20px; color: white;
+}
+.avatarLarge:hover .avatarUpload { opacity: 1; }
+
+.avatarName { font-size: 22px; font-weight: 700; }
+.avatarRole { font-size: 13px; color: var(--text-muted); text-transform: capitalize; margin-top: 4px; }
+
+.formSection {
+  padding: var(--space-6) 0; border-bottom: 1px solid var(--border);
+  margin-bottom: var(--space-6);
+}
+.formSection:last-child { border-bottom: none; }
+
+.form { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.formGrid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-4);
+}
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 500; color: var(--text-secondary);
+}
+.label svg { font-size: 14px; }
+
+/* Empty */
+.empty {
+  text-align: center; padding: var(--space-20) 0;
+  display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+}
+.emptyIcon { font-size: 48px; color: var(--text-muted); opacity: 0.3; }
+.emptyTitle { font-size: 18px; font-weight: 600; }
+.emptySub { font-size: 14px; color: var(--text-muted); }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .walletCards { grid-template-columns: 1fr; }
+  .bookingCard { flex-direction: column; }
+  .bookingThumb { width: 100%; height: 140px; }
+}
