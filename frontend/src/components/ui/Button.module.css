@@ -1,0 +1,99 @@
+/* Location: ConcertHub/frontend/src/components/ui/Button.module.css */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0);
+  transition: background var(--transition);
+}
+
+.btn:hover::before { background: rgba(255,255,255,0.06); }
+.btn:active::before { background: rgba(255,255,255,0.12); }
+
+/* Variants */
+.primary {
+  background: var(--accent);
+  color: var(--text-inverse);
+  font-weight: 600;
+}
+.primary:hover { background: var(--accent-dim); box-shadow: var(--shadow-accent); }
+
+.secondary {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+.secondary:hover { border-color: var(--border-hover); }
+
+.ghost {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+}
+.ghost:hover { border-color: var(--border-hover); background: var(--bg-elevated); }
+
+.danger {
+  background: var(--danger-dim);
+  color: var(--danger);
+  border: 1px solid rgba(255,77,109,0.3);
+}
+.danger:hover { background: rgba(255,77,109,0.25); }
+
+.accent-outline {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--border-accent);
+}
+.accent-outline:hover { background: var(--accent-subtle); }
+
+/* Sizes */
+.sm { padding: 6px 14px; font-size: 13px; border-radius: var(--radius-sm); }
+.md { padding: 10px 20px; font-size: 14px; }
+.lg { padding: 14px 28px; font-size: 16px; border-radius: var(--radius-lg); }
+.xl { padding: 16px 36px; font-size: 17px; border-radius: var(--radius-lg); }
+
+.fullWidth { width: 100%; }
+
+/* States */
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.loading { pointer-events: none; }
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.iconLeft, .iconRight {
+  display: inline-flex;
+  align-items: center;
+  font-size: 1.1em;
+}

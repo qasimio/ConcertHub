@@ -1,0 +1,46 @@
+/* Location: ConcertHub/frontend/src/components/layout/Footer.module.css */
+
+.footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-surface);
+  padding: var(--space-12) 0 var(--space-8);
+  margin-top: auto;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.brand { display: flex; flex-direction: column; gap: 6px; }
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.logo svg { color: var(--accent); }
+.logo span { color: var(--accent); }
+
+.tagline { font-size: 13px; color: var(--text-muted); }
+
+.links {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.links a {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+.links a:hover { color: var(--text-primary); }
+
+.copy { font-size: 12px; color: var(--text-muted); }
