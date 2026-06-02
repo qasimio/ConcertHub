@@ -1,5 +1,7 @@
 /* Location: ConcertHub/frontend/src/pages/user/UserPages.module.css */
 
+.page {}
+
 .header { margin-bottom: var(--space-8); }
 .eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 4px; }
 .title { font-size: clamp(24px, 4vw, 36px); font-weight: 700; }

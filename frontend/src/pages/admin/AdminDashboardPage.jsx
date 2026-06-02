@@ -35,13 +35,7 @@ const AdminDashboardPage = () => {
     finally { setLoading(false); }
   };
 
-  useEffect(() => {
-    const loadData = async () => {
-      await fetchData();
-    };
-
-    void loadData();
-  }, []);
+  useEffect(() => { fetchData(); }, []);
 
   const approveArtist = async (id, status, reason = '') => {
     try {

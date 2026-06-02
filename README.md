@@ -1,45 +1,4 @@
-```
-ConcertHub
-├─ .editorconfig
-├─ backend
-│  ├─ .env
-│  ├─ .env.example
-│  ├─ package-lock.json
-│  ├─ package.json
-│  └─ src
-│     ├─ app.js
-│     ├─ config
-│     │  └─ db.js
-│     ├─ controllers
-│     ├─ middlewares
-│     ├─ models
-│     ├─ routes
-│     ├─ server.js
-│     ├─ services
-│     └─ utils
-└─ frontend
-   ├─ .env
-   ├─ .env.example
-   ├─ eslint.config.js
-   ├─ index.html
-   ├─ package-lock.json
-   ├─ package.json
-   ├─ public
-   │  ├─ favicon.svg
-   │  └─ icons.svg
-   ├─ README.md
-   ├─ src
-   │  ├─ App.css
-   │  ├─ App.jsx
-   │  ├─ assets
-   │  │  ├─ hero.png
-   │  │  ├─ react.svg
-   │  │  └─ vite.svg
-   │  ├─ index.css
-   │  └─ main.jsx
-   └─ vite.config.js
 
-```
 ```
 ConcertHub
 ├─ .editorconfig
@@ -98,8 +57,57 @@ ConcertHub
 │  │  │  ├─ hero.png
 │  │  │  ├─ react.svg
 │  │  │  └─ vite.svg
+│  │  ├─ components
+│  │  │  ├─ layout
+│  │  │  │  ├─ Footer.jsx
+│  │  │  │  ├─ Footer.module.css
+│  │  │  │  ├─ Layout.jsx
+│  │  │  │  ├─ Navbar.jsx
+│  │  │  │  └─ Navbar.module.css
+│  │  │  └─ ui
+│  │  │     ├─ Button.jsx
+│  │  │     ├─ Button.module.css
+│  │  │     ├─ EventCard.jsx
+│  │  │     ├─ EventCard.module.css
+│  │  │     └─ ProtectedRoute.jsx
 │  │  ├─ index.css
-│  │  └─ main.jsx
+│  │  ├─ main.jsx
+│  │  ├─ pages
+│  │  │  ├─ admin
+│  │  │  │  ├─ AdminDashboardPage.jsx
+│  │  │  │  └─ AdminPages.module.css
+│  │  │  ├─ artist
+│  │  │  │  ├─ ArtistDashboardPage.jsx
+│  │  │  │  ├─ ArtistPages.module.css
+│  │  │  │  ├─ ArtistProfilePage.jsx
+│  │  │  │  └─ EventFormModal.jsx
+│  │  │  ├─ ArtistDetailPage.jsx
+│  │  │  ├─ ArtistDetailPage.module.css
+│  │  │  ├─ ArtistsPage.jsx
+│  │  │  ├─ ArtistsPage.module.css
+│  │  │  ├─ auth
+│  │  │  │  ├─ AuthPage.module.css
+│  │  │  │  ├─ LoginPage.jsx
+│  │  │  │  └─ RegisterPage.jsx
+│  │  │  ├─ EventDetailPage.jsx
+│  │  │  ├─ EventDetailPage.module.css
+│  │  │  ├─ EventPage.module.css
+│  │  │  ├─ EventsPage.jsx
+│  │  │  ├─ HomePage.jsx
+│  │  │  ├─ HomePage.module.css
+│  │  │  ├─ NotFoundPage.jsx
+│  │  │  ├─ NotFoundPage.module.css
+│  │  │  └─ user
+│  │  │     ├─ MyBookingsPage.jsx
+│  │  │     ├─ ProfilePage.jsx
+│  │  │     ├─ UserPages.module.css
+│  │  │     └─ WalletPage.jsx
+│  │  ├─ services
+│  │  │  └─ api.js
+│  │  ├─ store
+│  │  │  └─ authStore.js
+│  │  └─ utils
+│  │     └─ helpers.js
 │  └─ vite.config.js
 └─ README.md
 

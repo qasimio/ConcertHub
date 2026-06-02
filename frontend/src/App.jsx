@@ -1,6 +1,6 @@
 // Location: ConcertHub/frontend/src/App.jsx
 import { useEffect, Suspense, lazy } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import useAuthStore from './store/authStore';
 import Layout from './components/layout/Layout';

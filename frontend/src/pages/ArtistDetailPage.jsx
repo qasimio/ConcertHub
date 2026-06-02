@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { HiArrowLeft, HiHeart, HiStar, HiGlobeAlt } from 'react-icons/hi';
+import { HiArrowLeft, HiHeart, HiStar, HiGlobeAlt, HiMusicNote } from 'react-icons/hi';
 import { FaInstagram, FaTwitter, FaSpotify, FaYoutube } from 'react-icons/fa';
 import { artistAPI, reviewAPI, userAPI } from '../services/api';
 import useAuthStore from '../store/authStore';
@@ -34,7 +34,7 @@ const ArtistDetailPage = () => {
       finally { setLoading(false); }
     };
     fetch();
-  }, [id, navigate, user?.favoriteArtists]);
+  }, [id]);
 
   const handleFav = async () => {
     if (!isLoggedIn()) { navigate('/login'); return; }

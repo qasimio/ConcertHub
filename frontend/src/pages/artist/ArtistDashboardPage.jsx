@@ -7,6 +7,7 @@ import {
   HiXCircle, HiTrendingUp, HiTicket, HiCurrencyDollar, HiCalendar
 } from 'react-icons/hi';
 import { artistAPI, eventAPI } from '../../services/api';
+import useAuthStore from '../../store/authStore';
 import Button from '../../components/ui/Button';
 import EventFormModal from './EventFormModal';
 import { formatCurrency, formatDate, getErrorMessage } from '../../utils/helpers';
@@ -19,6 +20,7 @@ const STATUS_ICON = {
 };
 
 const ArtistDashboardPage = () => {
+  const { user } = useAuthStore();
   const [artist, setArtist]       = useState(null);
   const [events, setEvents]       = useState([]);
   const [analytics, setAnalytics] = useState(null);
@@ -40,10 +42,7 @@ const ArtistDashboardPage = () => {
     finally { setLoading(false); }
   };
 
-  useEffect(() => {
-    const timeoutId = setTimeout(fetchData, 0);
-    return () => clearTimeout(timeoutId);
-  }, []);
+  useEffect(() => { fetchData(); }, []);
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this event?')) return;

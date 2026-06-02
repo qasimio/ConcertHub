@@ -4,7 +4,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import {
   HiCalendar, HiLocationMarker, HiTicket, HiStar,
-  HiHeart, HiShare, HiClock, HiArrowLeft
+  HiHeart, HiShare, HiClock, HiUser, HiArrowLeft
 } from 'react-icons/hi';
 import { eventAPI, bookingAPI, reviewAPI, userAPI } from '../services/api';
 import useAuthStore from '../store/authStore';
@@ -49,7 +49,7 @@ const EventDetailPage = () => {
       finally { setLoading(false); }
     };
     fetch();
-  }, [id, navigate, user?.favoriteEvents]);
+  }, [id]);
 
   const handleBook = async () => {
     if (!isLoggedIn()) { navigate('/login'); return; }

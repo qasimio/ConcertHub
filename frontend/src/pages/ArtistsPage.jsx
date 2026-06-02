@@ -1,7 +1,7 @@
 // Location: ConcertHub/frontend/src/pages/ArtistsPage.jsx
 import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { HiSearch, HiMusicNote } from 'react-icons/hi';
+import { HiSearch, HiStar, HiMusicNote } from 'react-icons/hi';
 import { artistAPI } from '../services/api';
 import { GENRES, genreColors } from '../utils/helpers';
 import styles from './ArtistsPage.module.css';
@@ -15,12 +15,12 @@ const ArtistsPage = () => {
   const [search, setSearch]   = useState('');
   const [genre, setGenre]     = useState('');
 
-  const fetchArtists = useCallback(async (pg = 1, searchTerm = '', genreFilter = '') => {
+  const fetchArtists = useCallback(async (pg = 1) => {
     setLoading(true);
     try {
       const params = { page: pg, limit: 12 };
-      if (searchTerm) params.search = searchTerm;
-      if (genreFilter) params.genre = genreFilter;
+      if (search) params.search = search;
+      if (genre)  params.genre  = genre;
       const res = await artistAPI.getAll(params);
       setArtists(res.data.artists);
       setTotal(res.data.total);
@@ -28,12 +28,9 @@ const ArtistsPage = () => {
       setPage(pg);
     } catch (e) { console.error(e); }
     finally { setLoading(false); }
-  }, []);
+  }, [search, genre]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => fetchArtists(1, '', ''), 0);
-    return () => clearTimeout(timer);
-  }, [fetchArtists]);
+  useEffect(() => { fetchArtists(1); }, [fetchArtists]);
 
   return (
     <div className={`page-content ${styles.page}`}>
@@ -53,7 +50,7 @@ const ArtistsPage = () => {
               placeholder="Search artists…"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && fetchArtists(1, search, genre)}
+              onKeyDown={e => e.key === 'Enter' && fetchArtists(1)}
             />
           </div>
           <select className={styles.select} value={genre} onChange={e => setGenre(e.target.value)}>
@@ -122,6 +119,9 @@ const ArtistsPage = () => {
 };
 
 const ArtistCard = ({ artist, index }) => {
+  const primaryGenre = artist.genre?.[0] || 'Other';
+  const gc = genreColors[primaryGenre] || genreColors['Other'];
+
   return (
     <Link
       to={`/artists/${artist._id}`}

@@ -17,7 +17,7 @@ const SORT_OPTIONS = [
 ];
 
 const EventsPage = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [events, setEvents]   = useState([]);
   const [total, setTotal]     = useState(0);
   const [page, setPage]       = useState(1);
@@ -57,10 +57,7 @@ const EventsPage = () => {
     }
   }, [filters]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => fetchEvents(1), 0);
-    return () => clearTimeout(timer);
-  }, [fetchEvents]);
+  useEffect(() => { fetchEvents(1); }, [fetchEvents]);
 
   const handleFilter = (key, val) => setFilters(f => ({ ...f, [key]: val }));
   const clearFilters = () => setFilters({ search: '', genre: '', city: '', minPrice: '', maxPrice: '', sortBy: '' });
