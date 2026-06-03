@@ -5,6 +5,7 @@ const User = require('../models/User');
 const Event = require('../models/Event');
 const Booking = require('../models/Booking');
 const Payment = require('../models/Payment');
+const uploadToCloudinary = require('../utils/uploadToCloudinary');
 
 // ─── @GET /api/artists ─────────────────────────────────────────────────────────
 const getAllArtists = async (req, res, next) => {
@@ -108,16 +109,32 @@ const updateMyArtistProfile = async (req, res, next) => {
     if (genre) artist.genre = Array.isArray(genre) ? genre : [genre];
     if (socialLinks) artist.socialLinks = { ...artist.socialLinks, ...socialLinks };
 
-    // Handle image uploads
-    if (req.files?.profileImage) {
-      artist.profileImage = `/uploads/artists/${req.files.profileImage[0].filename}`;
+    // Upload profile image to Cloudinary
+    if (req.files?.profileImage?.[0]) {
+      const result = await uploadToCloudinary(
+        req.files.profileImage[0].buffer,
+        'concerthub/artists'
+      );
+
+      artist.profileImage = result.secure_url;
     }
-    if (req.files?.bannerImage) {
-      artist.bannerImage = `/uploads/artists/${req.files.bannerImage[0].filename}`;
+
+    // Upload banner image to Cloudinary
+    if (req.files?.bannerImage?.[0]) {
+      const result = await uploadToCloudinary(
+        req.files.bannerImage[0].buffer,
+        'concerthub/artists'
+      );
+
+      artist.bannerImage = result.secure_url;
     }
 
     await artist.save();
-    res.status(200).json({ success: true, artist });
+
+    res.status(200).json({
+      success: true,
+      artist,
+    });
   } catch (error) {
     next(error);
   }

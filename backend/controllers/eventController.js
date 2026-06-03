@@ -3,6 +3,7 @@
 const Event = require('../models/Event');
 const Artist = require('../models/Artist');
 const Booking = require('../models/Booking');
+const uploadToCloudinary = require('../utils/uploadToCloudinary');
 
 // ─── @GET /api/events ─────────────────────────────────────────────────────────
 // Public: only approved+published events. Admin: all.
@@ -144,12 +145,29 @@ const createEvent = async (req, res, next) => {
       tags: tags || [],
     };
 
-    if (req.files?.bannerImage) {
-      eventData.bannerImage = `/uploads/events/${req.files.bannerImage[0].filename}`;
-    }
-    if (req.files?.images) {
-      eventData.images = req.files.images.map((f) => `/uploads/events/${f.filename}`);
-    }
+  if (req.files?.bannerImage?.[0]) {
+    const bannerUpload = await uploadToCloudinary(
+      req.files.bannerImage[0].buffer,
+      'concerthub/events'
+    );
+
+    eventData.bannerImage = bannerUpload.secure_url;
+  }
+
+  if (req.files?.images?.length) {
+    const uploadedImages = await Promise.all(
+      req.files.images.map((file) =>
+        uploadToCloudinary(
+          file.buffer,
+          'concerthub/events'
+        )
+      )
+    );
+
+    eventData.images = uploadedImages.map(
+      (img) => img.secure_url
+    );
+  }
 
     const event = await Event.create(eventData);
     await event.populate('artist', 'stageName profileImage');
@@ -194,9 +212,14 @@ const updateEvent = async (req, res, next) => {
       event.availableSeats = Number(req.body.totalSeats) - soldTickets;
     }
 
-    if (req.files?.bannerImage) {
-      event.bannerImage = `/uploads/events/${req.files.bannerImage[0].filename}`;
-    }
+  if (req.files?.bannerImage?.[0]) {
+    const bannerUpload = await uploadToCloudinary(
+      req.files.bannerImage[0].buffer,
+      'concerthub/events'
+    );
+
+    event.bannerImage = bannerUpload.secure_url;
+  }
 
     // If artist edits, reset approval
     if (req.user.role !== 'admin') {
