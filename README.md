@@ -112,3 +112,16 @@ ConcertHub
 └─ README.md
 
 ```
+## Database Structure
+
+This project uses MongoDB Atlas as the primary database and Mongoose as the ODM layer.
+
+Collections:
+- Users
+- Artists
+- Events
+- Bookings
+- Payments
+- Reviews
+
+Relationships are maintained using ObjectId references. referencing is used in this database to avoid duplication of data
