@@ -124,4 +124,4 @@ Collections:
 - Payments
 - Reviews
 
-Relationships are maintained using ObjectId references.
+Relationships are maintained using ObjectId references. referencing is used in this database to avoid duplication of data
