@@ -828,4 +828,4 @@ Common causes: missing import, typo in component name, CSS module class that doe
 
 ---
 
-*ConcertHub v1.0 — Built with ♪ by Qasim*
+*ConcertHub v1.0 — Built with ♪ by Muhammad Qasim*
