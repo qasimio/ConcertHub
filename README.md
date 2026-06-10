@@ -496,6 +496,10 @@ Database Engineer
 
 ---
 
-<p align="center">
-Built by Qasim Sethar with 🎵, MongoDB, and a lot of late-night debugging.
-</p>
+## Built By
+
+ConcertHub was developed as a collaborative university project by:
+
+- Muhammad Qasim Sethar — Lead Architect & Full Stack Engineer
+- Manahil Fatima — Frontend Engineer
+- Yumna Ahmed — Database Engineer
